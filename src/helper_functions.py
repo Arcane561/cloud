@@ -39,7 +39,6 @@ def create_mask(img_file):
     mask = np.zeros(img.data.shape[1] * img.data.shape[2], dtype=np.int64)
 
     for cld_clss in cloud_class_code:
-        print(cld_clss)
 
         if len(y_label_dict[f"{img_file}_{cld_clss}"]) != 0:
 
