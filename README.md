@@ -1,7 +1,11 @@
 cloud
 ==============================
 
-A short description of the project.
+Kaggle cloud competition... 
+* I am confused on the project structure
+* Should we make the repo private?
+
+
 
 Project Organization
 ------------
