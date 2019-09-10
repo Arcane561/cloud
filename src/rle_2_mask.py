@@ -62,15 +62,19 @@ def rle_2_png(img):
         cloud_cls = df_temp.iloc[ind].Image_Label.split("_")[-1]
 
         mask = open_mask_rle(df_temp.iloc[ind].EncodedPixels, (1400, 2100))
-        
-        if ind==0:
+
+        if ind == 0:
             mask_complete = mask.data
         else:
             mask_complete[mask.data != 0] = cloud_class_code[cloud_cls]
 
-    return mask_complete
+    mask_complete = ImageSegment(mask_complete)
+    mask_complete.save(
+        PROJ_DIR / "data" / "raw" / "train_labels" / f"{img.split('.')[0]}.png"
+    )
 
-    plt.imshow(mask_complete.T)
-    plt.savefig(PROJ_DIR / "data" / "raw" / "train_labels" / f"{img.split('.')[0]}.png")
 
-mask = rle_2_png("006bf7c.jpg")
+for ind, fn in enumerate(fnames):
+    if ind % 50 == 0:
+        print(ind)
+    rle_2_png(fn.stem)
