@@ -31,7 +31,8 @@ img.show(figsize=(5, 5))
 
 # Preparing labels codes
 cloud_class = ["Fish", "Flower", "Gravel", "Sugar"]
-cloud_class_code = {x: 2**cloud_class.index(x) for x in cloud_class}
+# Classes must be 0 indexed for pytorch to work. Background gets 0 
+cloud_class_code = {x: cloud_class.index(x)+1 for x in cloud_class}
 print(cloud_class_code)
 
 # Reading run-length-encoded labels
