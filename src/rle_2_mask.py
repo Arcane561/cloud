@@ -32,7 +32,7 @@ img.show(figsize=(5, 5))
 # Preparing labels codes
 cloud_class = ["Fish", "Flower", "Gravel", "Sugar"]
 # Classes must be 0 indexed for pytorch to work. Background gets 0 
-cloud_class_code = {x: cloud_class.index(x)+1 for x in cloud_class}
+cloud_class_code = {x: 9**cloud_class.index(x) for x in cloud_class}
 print(cloud_class_code)
 
 # Reading run-length-encoded labels
@@ -69,7 +69,8 @@ def rle_2_png(img):
         else:
             mask_complete[mask.data != 0] = cloud_class_code[cloud_cls]
 
-    mask_complete = ImageSegment(mask_complete.data.permute(0,2,1)+10)
+    #mask_complete = torch.tensor(mask_complete, dtype=torch.uint8)
+    mask_complete = ImageSegment(mask_complete.data.permute(0,2,1))
     mask_complete.save(
         PROJ_DIR / "data" / "raw" / "train_labels" / f"{img.split('.')[0]}.png"
     )
