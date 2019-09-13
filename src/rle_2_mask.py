@@ -69,7 +69,7 @@ def rle_2_png(img):
         else:
             mask_complete[mask.data != 0] = cloud_class_code[cloud_cls]
 
-    mask_complete = ImageSegment(mask_complete.data.permute(0,2,1))
+    mask_complete = ImageSegment(mask_complete.data.permute(0,2,1)+10)
     mask_complete.save(
         PROJ_DIR / "data" / "raw" / "train_labels" / f"{img.split('.')[0]}.png"
     )
